@@ -7,6 +7,7 @@ class Game_board:
         self.num_mines = mines
         self.is_first_turn = True
         self.mine_field = []
+        self.mine_set = set()
 
         #creates an array of size num_rows x num_columns full of '0's
         for row in range(self.num_rows):
@@ -30,6 +31,7 @@ class Game_board:
             rand_col = random.randrange(0, self.num_columns)
             if self.mine_field[rand_row][rand_col] == 0:
                 self.mine_field[rand_row][rand_col] = '*'
+                self.mine_set.add((rand_row, rand_col))
                 mine_counter -= 1
 
     def fill_board(self):

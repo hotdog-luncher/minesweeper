@@ -4,8 +4,8 @@ from userboard import User_board
 
 #testing
 
-x = Game_board(15, 15 ,7)
-#x.place_mines(0,1)
+x = Game_board(4,4, 3)
+x.place_mines(4,7)
 #print(x.mine_field)
 
 #x.fill_board()
@@ -15,5 +15,6 @@ y = User_board(x)
 
 #row, column = y.get_coords()
 #print(row, column)
-
+y.add_mines()
 y.display_board()
+print(y.mine_set)

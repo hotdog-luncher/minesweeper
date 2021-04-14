@@ -3,14 +3,17 @@ class User_board:
         self.num_rows = game_board.num_rows
         self.num_columns = game_board.num_columns
         self.unopened_tiles = self.num_rows * self.num_columns
+        self.mine_field = game_board.mine_field
         self.user_array = []
+        self.flag_set = set()
+        self.mine_set = game_board.mine_set
 
         for row in range(self.num_rows):        #creates an array of size num_rows x num_columns full of '-'s
             self.user_array.append([])
             for column in range(self.num_columns):
                 self.user_array[row].append('-')
 
-    def get_coords(self):
+    def get_coords(self):                          #get row and column coordinates and validate input          
         while True:                                                                    #get row
             while True:
                 try:
@@ -54,4 +57,13 @@ class User_board:
             x += 1
             for column in range(self.num_columns):
                 print(self.user_array[row][column], end='  ')
+        print()
 
+    def add_mines(self):                           #add mines from the game board to the user board
+        for row in range(self.num_rows):
+            for column in range(self.num_columns):
+                if self.mine_field[row][column] == '*':
+                    self.user_array[row][column] = '*'
+
+    def explode(self):
+        self.add_mines()
