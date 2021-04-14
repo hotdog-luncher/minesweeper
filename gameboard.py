@@ -8,7 +8,7 @@ class Game_board:
         self.is_first_turn = True
         self.mine_field = []
 
-        '''creates an array of size num_rows x num_columns full of '0's'''
+        #creates an array of size num_rows x num_columns full of '0's
         for row in range(self.num_rows):
             self.mine_field.append([])
             for column in range(self.num_columns):
@@ -34,22 +34,16 @@ class Game_board:
 
     def fill_board(self):
         for x in range(self.num_rows):
-            for y in range(self.num_columns):        #iterate through each tile that is not a mine
-                if self.mine_field[x][y] != '*':
+            for y in range(self.num_columns):             
+                if self.mine_field[x][y] != '*':          #iterate through each tile that is not a mine
                     mine_count = 0
-                    for row in range(x-1, x+2):          #for each tile iterate through all the tiles around it counting mines
-                     for column in range(y-1, y+2):
-                            if row in range(0, self.num_rows) and column in range(0, self.num_columns):
+                    for row in range(x-1, x+2):           #for each tile iterate through all the tiles around it counting mines
+                        for column in range(y-1, y+2):
+                            if row in range(0, self.num_rows) and column in range(0, self.num_columns):  #if tile is on board
                                 if self.mine_field[row][column] == '*':
                                     mine_count += 1
                     self.mine_field[x][y] = mine_count
 
 
 
-x = Game_board(5,5,7)
-x.place_mines(0,1)
-print(x.mine_field)
-
-x.fill_board()
-print(x.mine_field)
 
