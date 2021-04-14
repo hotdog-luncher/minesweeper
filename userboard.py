@@ -7,6 +7,7 @@ class User_board:
         self.user_array = []
         self.flag_set = set()
         self.mine_set = game_board.mine_set
+        self.play_game = 'y'
 
         for row in range(self.num_rows):        #creates an array of size num_rows x num_columns full of '-'s
             self.user_array.append([])
@@ -65,6 +66,22 @@ class User_board:
             y = coord[1]
             self.user_array[x][y] = '*'
 
-    def explode(self):
+    def explode(self):                             #call add mines, check for bad flags and display the board
         self.add_mines()
+        bad_flag = self.flag_set.difference(self.mine_set)
         
+        for coord in bad_flag:
+            x = coord[0]
+            y = coord[1]
+            self.user_array[x][y] = 'X'
+        
+        self.display_board()
+
+        new_game = ''
+        while new_game not in ['y', 'n']:
+            new_game = input("you lose! would you like to play again? (y/n)").lower        
+        
+        self.play_game = new_game
+            
+
+
