@@ -60,10 +60,11 @@ class User_board:
         print()
 
     def add_mines(self):                           #add mines from the game board to the user board
-        for row in range(self.num_rows):
-            for column in range(self.num_columns):
-                if self.mine_field[row][column] == '*':
-                    self.user_array[row][column] = '*'
+        for coord in self.mine_set:
+            x = coord[0]
+            y = coord[1]
+            self.user_array[x][y] = '*'
 
     def explode(self):
         self.add_mines()
+        
