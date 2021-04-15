@@ -14,17 +14,17 @@ class User_board:
             for column in range(self.num_columns):
                 self.user_array[row].append('-')
 
-    def get_coords(self):                          #get row and column coordinates and validate input          
+    def get_coords(self):                          #get row and column coordinates and validate input, then return them          
         while True:                                                                    #get row
             while True:
                 try:
                     row = int(input("Please enter a row: "))                           #make sure entry is a number
                     break
                 except ValueError:
-                    print("thats not a number!")
+                    print("thats not a number! \n")
 
             if row not in list((range(1, self.num_rows+1))):                           #make sure entry is on the board
-                print("Please enter a number from 1 to {0}".format(self.num_rows))
+                print("Please enter a number from 1 to {0}\n".format(self.num_rows))
             else:
                 break
 
@@ -34,14 +34,14 @@ class User_board:
                     column =  int(input("Please enter a column: "))
                     break
                 except ValueError:
-                    print("thats not a number!")
+                    print("thats not a number! \n")
 
             if column not in list((range(1, self.num_columns+1))):                      #make sure entry is on the board
-                print("Please enter a number from 1 to {0}".format(self.num_columns))
+                print("Please enter a number from 1 to {0}\n".format(self.num_columns))
             else:
                 break
 
-        return row , column
+        return row - 1, column - 1
 
     def display_board(self):                       #display user board, including row and column numbers, opened tiles, dashes, and flags
         x = 1
@@ -79,9 +79,41 @@ class User_board:
 
         new_game = ''
         while new_game not in ['y', 'n']:
-            new_game = input("you lose! would you like to play again? (y/n)").lower        
+            new_game = input("you lose! would you like to play again? (y/n)").lower()     
         
         self.play_game = new_game
             
+    def place_flag(self):                          #allows user to place flag representing a mine
+        print("Place a flag to mark a suspected mine")
+        row, column = self.get_coords() 
+
+        if self.user_array[row][column] == 'F':
+            print("This tile is already flagged \n")
+            return
+        
+        elif self.user_array[row][column] != '-':
+            print("This tile has already been opened \n")
+            return
+        
+        else:
+            self.user_array[row][column] = 'F'
+            self.flag_set.add((row,column))
+        
+        self.display_board()
+
+    def unflag(self):                              #allows user to remove a previously placed flag
+        if self.flag_set:
+            print("Remove a flag from the board")
+            row, column = self.get_coords()
+            if self.user_array[row][column] != 'F':
+                print("Tile is not flagged")
+            else:
+                self.user_array[row][column] = '-'
+                self.flag_set.remove((row, column))
+        else:
+            print("There are currently no flags\n")
+        self.display_board()
+        
+
 
 
