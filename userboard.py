@@ -2,18 +2,21 @@ class User_board:
     def __init__(self, game_board):
         self.num_rows = game_board.num_rows
         self.num_columns = game_board.num_columns
+        self.num_mines = game_board.num_mines
         self.unopened_tiles = self.num_rows * self.num_columns
         self.mine_field = game_board.mine_field
         self.user_array = []
         self.flag_set = set()
         self.mine_set = game_board.mine_set
-        self.play_game = 'y'
+        self.play_game = 'Y'
+        self.game_over = False
 
         for row in range(self.num_rows):        #creates an array of size num_rows x num_columns full of '-'s
             self.user_array.append([])
             for column in range(self.num_columns):
                 self.user_array[row].append('-')
 
+    
     def get_coords(self):                       #get row and column coordinates and validate input, then return them          
         while True:                                                                    #get row
             while True:
@@ -77,11 +80,11 @@ class User_board:
         
         self.display_board()
 
-        new_game = ''
-        while new_game not in ['y', 'n']:
-            new_game = input("you lose! would you like to play again? (y/n)").lower()     
-        
-        self.play_game
+        while True:
+            self.play_game = input("you lose! would you like to play again? (Y/N)").upper()
+            if self.play_game in ['Y', 'N']: 
+                break    
+        self.game_over = True
             
     def place_flag(self):                       #allows user to place flag representing a mine
         print("Place a flag to mark a suspected mine")
@@ -118,6 +121,7 @@ class User_board:
 
     def open_tile(self, x, y):                  #sets user array equal to minefield at a given tile
         self.user_array[x][y] = self.mine_field[x][y]
+        self.unopened_tiles -= 1
 
     def get_unopened_neighbors(self, x, y):     #takes in coords and builds a set of tile coords for tiles that are neighbors, in range and unopened ('-' on userboard) and returns it
         unopened_set = set()
@@ -170,12 +174,11 @@ class User_board:
                     if self.user_array[row][column] == '-':                                  #open tile, if bomb explode
                         if self.mine_field[row][column] == '*':
                             self.explode()
-                        self.user_array[row][column] = self.mine_field[row][column]
+                        self.open_tile(row, column)
                         self.open_zeros(row, column)
+            self.display_board()
 
-    def choose(self):                           #gets coords, if bomb explode, if '-' open tile and call open zeros
-        x, y = get_coords(self):
-        
+    def choose(self, x, y):                     #takes in coords, if bomb explode, if '-' open tile and call open zeros
         if self.user_array[x][y] == 'F':
             print("This tile is flagged as a mine and cannot be selected\n")
             self.display_board()
@@ -190,9 +193,18 @@ class User_board:
             self.explode()
             return
 
-        self.user_array[x][y] = self.mine_field[x][y]
+        self.open_tile(x, y)
         self.open_zeros(x,y)
         self.display_board()
+
+        if self.unopened_tiles == self.num_mines:
+            while True:
+                self.play_game = input("you win! would you like to play again? (Y/N)").upper()
+                if self.play_game in ['Y', 'N']: 
+                    break 
+            self.game_over = True
+
+
         
 
         

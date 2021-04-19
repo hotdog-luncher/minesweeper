@@ -29,6 +29,8 @@ class Game_board:
                 self.mine_field[rand_row][rand_col] = '*'
                 self.mine_set.add((rand_row, rand_col))
                 mine_counter -= 1
+        
+        self.is_first_turn = False
 
     def fill_board(self):                           #populate the board with numbers for mines touching each tile
         for x in range(self.num_rows):
@@ -42,6 +44,22 @@ class Game_board:
                                     mine_count += 1
                     self.mine_field[x][y] = mine_count
 
+    def display_board(self):                        #display user board, including row and column numbers, opened tiles, dashes, and flags
+        x = 1
+        print('  ', end= ' ')
+        for num in range(1, self.num_columns+1):          
+            print(num, end= ' ')
+            if num < 10:                           #handle spacing in grid layout when the number goes from single to double digit
+                print(' ', end= '')
+        for row in range(self.num_rows):
+            print()
+            print(x, end= ' ')
+            if x < 10:
+                print(' ', end= '')
+            x += 1
+            for column in range(self.num_columns):
+                print(self.mine_field[row][column], end='  ')
+        print()
 
 
 
