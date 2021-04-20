@@ -1,3 +1,5 @@
+import os
+
 class User_board:
     def __init__(self, game_board):
         self.num_rows = game_board.num_rows
@@ -47,6 +49,8 @@ class User_board:
         return row - 1, column - 1
 
     def display_board(self):                    #display user board, including row and column numbers, opened tiles, dashes, and flags
+        os.system('cls' if os.name == 'nt' else 'clear')
+
         x = 1
         print('  ', end= ' ')
         for num in range(1, self.num_columns+1):          
@@ -63,8 +67,10 @@ class User_board:
                 print(self.user_array[row][column], end='  ')
         print()
 
-    def add_mines(self):                        #add mines from the game board to the user board
-        for coord in self.mine_set:
+    def add_mines(self):                        #add mines from the game board to the user board leaving correct flags in place
+        no_flag_mines = self.mine_set.difference(self.flag_set)
+
+        for coord in no_flag_mines:
             x = coord[0]
             y = coord[1]
             self.user_array[x][y] = '*'
@@ -85,6 +91,7 @@ class User_board:
             if self.play_game in ['Y', 'N']: 
                 break    
         self.game_over = True
+        os.system('cls' if os.name == 'nt' else 'clear')
             
     def place_flag(self):                       #allows user to place flag representing a mine
         print("Place a flag to mark a suspected mine")
@@ -195,16 +202,25 @@ class User_board:
 
         self.open_tile(x, y)
         self.open_zeros(x,y)
-        self.display_board()
 
         if self.unopened_tiles == self.num_mines:
+            no_flag_mines = self.mine_set.difference(self.flag_set)
+
+            for coord in no_flag_mines:
+                x = coord[0]
+                y = coord[1]
+                self.user_array[x][y] = 'F'
+
+            self.display_board()
+
             while True:
                 self.play_game = input("you win! would you like to play again? (Y/N)").upper()
                 if self.play_game in ['Y', 'N']: 
                     break 
             self.game_over = True
-
-
+            os.system('cls' if os.name == 'nt' else 'clear')
+        else:
+            self.display_board()
         
 
         

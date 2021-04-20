@@ -1,5 +1,6 @@
 from gameboard import Game_board
 from userboard import User_board
+import os
 
 def create_gameboard():
     rows = 0
@@ -69,12 +70,13 @@ def create_gameboard():
                 break
         
     return Game_board(rows, columns, mines)
-
+    
 play_game = 'Y'
 max_rows = 70
 max_columns = 88 
 
 while play_game == 'Y':
+    os.system('cls' if os.name == 'nt' else 'clear')
     print("Welcome to Minesweeper\n")
 
     game_board = create_gameboard()
@@ -89,7 +91,6 @@ while play_game == 'Y':
     
         if choice == 'C':
             x, y = user_board.get_coords()
-
             if game_board.is_first_turn == True:               #fill gameboard after initial choice insuring a first choice of a 0 tile
                 game_board.place_mines(x,y)
                 game_board.fill_board()
