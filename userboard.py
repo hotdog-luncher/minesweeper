@@ -1,4 +1,5 @@
 import os
+from time import sleep
 
 class User_board:
     def __init__(self, game_board):
@@ -99,11 +100,13 @@ class User_board:
 
         if self.user_array[row][column] == 'F':
             print("This tile is already flagged \n")
+            sleep(1)
             self.display_board()
             return
         
         elif self.user_array[row][column] != '-':
             print("This tile has already been opened \n")
+            sleep(1)
             self.display_board()
             return
         
@@ -119,11 +122,13 @@ class User_board:
             row, column = self.get_coords()
             if self.user_array[row][column] != 'F':
                 print("Tile is not flagged")
+                sleep(1)
             else:
                 self.user_array[row][column] = '-'
                 self.flag_set.remove((row, column))
         else:
             print("There are currently no flags\n")
+            sleep(1)
         self.display_board()
 
     def open_tile(self, x, y):                  #sets user array equal to minefield at a given tile
@@ -160,6 +165,7 @@ class User_board:
 
         if tile_value == '-':
             print('Tile is not yet opened\n')
+            sleep(1)
             return
         
         for row in range(x-1, x+2):                    #for each tile iterate through all the tiles around it counting flags
@@ -170,9 +176,11 @@ class User_board:
         
         if flag_count > tile_value:
             print("too many flags around tile\n")
+            sleep(1)
 
         elif tile_value > flag_count:
-            print("not enough flags around tile\n") 
+            print("not enough flags around tile\n")
+            sleep(1) 
 
         else:
             for row in range(x-1, x+2):                  #for each tile iterate through all the tiles around it 
@@ -188,12 +196,12 @@ class User_board:
     def choose(self, x, y):                     #takes in coords, if bomb explode, if '-' open tile and call open zeros
         if self.user_array[x][y] == 'F':
             print("This tile is flagged as a mine and cannot be selected\n")
-            self.display_board()
+            sleep(1)
             return
         
         if self.user_array[x][y] != '-':
             print("This tile has already been opened\n")
-            self.display_board()
+            sleep(1)
             return
         
         if self.mine_field[x][y] == '*':
@@ -219,8 +227,6 @@ class User_board:
                     break 
             self.game_over = True
             os.system('cls' if os.name == 'nt' else 'clear')
-        else:
-            self.display_board()
         
 
         

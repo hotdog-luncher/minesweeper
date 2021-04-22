@@ -82,9 +82,11 @@ while play_game == 'Y':
     game_board = create_gameboard()
     user_board = User_board(game_board)
     
-    user_board.display_board()
     while user_board.game_over == False:
         while True:
+            user_board.display_board()
+            rem_mines = user_board.num_mines - len(user_board.flag_set)
+            print('\n{0} mines remaining'.format(rem_mines))
             choice = input("What would you like to do?\nC (choose), F (flag), U (unflag), D (double click) Q (quit)").upper()
             if choice in ['C', 'F', 'U', 'D', 'Q']:
                 break   
@@ -119,27 +121,27 @@ while play_game == 'Y':
 
 
 
-
+'''
 
 
 
 
 #testing
-'''
+
 x = Game_board(10, 10, 10)
 x.place_mines(4,7)
 x.fill_board()
-x.display_board()
+#x.display_board()
 
 
 y = User_board(x)
 
 
 
-row, column = y.get_coords()
+#row, column = y.get_coords()
 #print(row, column)
 #y.add_mines()
-#y.display_board()
+y.display_board()
 #y.explode()
 
 #y.unflag()
