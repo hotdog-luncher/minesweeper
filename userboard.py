@@ -95,27 +95,28 @@ class User_board:
         os.system('cls' if os.name == 'nt' else 'clear')
             
     def place_flag(self):                       #allows user to place flag representing a mine
+        if len(self.flag_set) == self.num_mines:
+            print("No flags remaining, unflag a tile to continue")
+            sleep(1)
+            return
+
         print("Place a flag to mark a suspected mine")
         row, column = self.get_coords() 
 
         if self.user_array[row][column] == 'F':
             print("This tile is already flagged \n")
             sleep(1)
-            self.display_board()
             return
         
         elif self.user_array[row][column] != '-':
             print("This tile has already been opened \n")
             sleep(1)
-            self.display_board()
             return
         
         else:
             self.user_array[row][column] = 'F'
             self.flag_set.add((row,column))
-        
-        self.display_board()
-
+ 
     def unflag(self):                           #allows user to remove a previously placed flag
         if self.flag_set:
             print("Remove a flag from the board")
@@ -167,6 +168,11 @@ class User_board:
             print('Tile is not yet opened\n')
             sleep(1)
             return
+
+        if tile_value == 'F':
+            print('Tile is flagged as a mine and cannot be selected\n')
+            sleep(1)
+            return
         
         for row in range(x-1, x+2):                    #for each tile iterate through all the tiles around it counting flags
              for column in range(y-1, y+2):
@@ -192,6 +198,9 @@ class User_board:
                         self.open_tile(row, column)
                         self.open_zeros(row, column)
             self.display_board()
+        
+        if self.unopened_tiles == self.num_mines:
+            self.win_game()
 
     def choose(self, x, y):                     #takes in coords, if bomb explode, if '-' open tile and call open zeros
         if self.user_array[x][y] == 'F':
@@ -212,6 +221,9 @@ class User_board:
         self.open_zeros(x,y)
 
         if self.unopened_tiles == self.num_mines:
+            win_game()
+      
+    def win_game(self):                         #display winning board and ask user to play again
             no_flag_mines = self.mine_set.difference(self.flag_set)
 
             for coord in no_flag_mines:
@@ -226,12 +238,6 @@ class User_board:
                 if self.play_game in ['Y', 'N']: 
                     break 
             self.game_over = True
-            os.system('cls' if os.name == 'nt' else 'clear')
-        
-
-        
-        
-
         
 
 
