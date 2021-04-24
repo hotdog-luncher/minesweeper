@@ -1,5 +1,5 @@
 import os
-from time import sleep
+import time
 
 class User_board:
     def __init__(self, game_board):
@@ -13,13 +13,17 @@ class User_board:
         self.mine_set = game_board.mine_set
         self.play_game = 'Y'
         self.game_over = False
+        self.game_start_time = int(time.monotonic())
 
         for row in range(self.num_rows):        #creates an array of size num_rows x num_columns full of '-'s
             self.user_array.append([])
             for column in range(self.num_columns):
                 self.user_array[row].append('-')
 
-    
+    def update_minefield(self, game_board):
+        self.mine_field = game_board.mine_field
+        self.mine_set = game_board.mine_set
+
     def get_coords(self):                       #get row and column coordinates and validate input, then return them          
         while True:                                                                    #get row
             while True:
@@ -87,12 +91,13 @@ class User_board:
         
         self.display_board()
 
+        print('\n{0} seconds have elapsed'.format(int(time.monotonic())-self.game_start_time))
+
         while True:
             self.play_game = input("you lose! would you like to play again? (Y/N)").upper()
             if self.play_game in ['Y', 'N']: 
                 break    
         self.game_over = True
-        os.system('cls' if os.name == 'nt' else 'clear')
             
     def place_flag(self):                       #allows user to place flag representing a mine
         if len(self.flag_set) == self.num_mines:
@@ -130,7 +135,6 @@ class User_board:
         else:
             print("There are currently no flags\n")
             sleep(1)
-        self.display_board()
 
     def open_tile(self, x, y):                  #sets user array equal to minefield at a given tile
         self.user_array[x][y] = self.mine_field[x][y]
@@ -197,7 +201,6 @@ class User_board:
                             self.explode()
                         self.open_tile(row, column)
                         self.open_zeros(row, column)
-            self.display_board()
         
         if self.unopened_tiles == self.num_mines:
             self.win_game()
@@ -221,7 +224,7 @@ class User_board:
         self.open_zeros(x,y)
 
         if self.unopened_tiles == self.num_mines:
-            win_game()
+            self.win_game()
       
     def win_game(self):                         #display winning board and ask user to play again
             no_flag_mines = self.mine_set.difference(self.flag_set)
@@ -232,6 +235,8 @@ class User_board:
                 self.user_array[x][y] = 'F'
 
             self.display_board()
+
+            print('\n{0} seconds have elapsed'.format(int(time.monotonic())-self.game_start_time))
 
             while True:
                 self.play_game = input("you win! would you like to play again? (Y/N)").upper()

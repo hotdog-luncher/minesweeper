@@ -1,5 +1,6 @@
 from gameboard import Game_board
 from userboard import User_board
+import time
 import os
 
 def create_gameboard():
@@ -86,7 +87,8 @@ while play_game == 'Y':
         while True:
             user_board.display_board()
             rem_mines = user_board.num_mines - len(user_board.flag_set)
-            print('\n{0} mines remaining'.format(rem_mines))
+            print('\n{0} seconds have elapsed'.format(int(time.monotonic())-user_board.game_start_time))
+            print('{0} mines remaining \n'.format(rem_mines))
             choice = input("What would you like to do?\nC (choose), F (flag), U (unflag), D (double click) Q (quit)").upper()
             if choice in ['C', 'F', 'U', 'D', 'Q']:
                 break   
@@ -96,11 +98,9 @@ while play_game == 'Y':
             if game_board.is_first_turn == True:               #fill gameboard after initial choice insuring a first choice of a 0 tile
                 game_board.place_mines(x,y)
                 game_board.fill_board()
-                user_board.mine_field = game_board.mine_field
-                user_board.mine_set = game_board.mine_set
-                
+                user_board.update_minefield(game_board)
+                               
             user_board.choose(x,y)
-
 
         if choice == 'F':
             user_board.place_flag()
@@ -121,11 +121,10 @@ while play_game == 'Y':
 
 
 
+
+
+
 '''
-
-
-
-
 #testing
 
 x = Game_board(10, 10, 10)
