@@ -44,7 +44,7 @@ class Game_board:
                                     mine_count += 1
                     self.mine_field[x][y] = mine_count
 
-    def display_board(self):                        #display user board, including row and column numbers, opened tiles, dashes, and flags
+    def display_board(self):                        #display game board. this method is only used in testing
         x = 1
         print('  ', end= ' ')
         for num in range(1, self.num_columns+1):          

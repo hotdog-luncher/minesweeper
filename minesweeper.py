@@ -76,14 +76,14 @@ play_game = 'Y'
 max_rows = 70
 max_columns = 88 
 
-while play_game == 'Y':
+while play_game == 'Y':                                      #master game loop
     os.system('cls' if os.name == 'nt' else 'clear')
     print("Welcome to Minesweeper\n")
 
     game_board = create_gameboard()
     user_board = User_board(game_board)
     
-    while user_board.game_over == False:
+    while user_board.game_over == False:                      #inner game loop
         while True:
             user_board.display_board()
             rem_mines = user_board.num_mines - len(user_board.flag_set)
@@ -118,40 +118,3 @@ while play_game == 'Y':
 
         if user_board.play_game == 'N':
             break
-
-
-
-
-
-
-'''
-#testing
-
-x = Game_board(10, 10, 10)
-x.place_mines(4,7)
-x.fill_board()
-#x.display_board()
-
-
-y = User_board(x)
-
-
-
-#row, column = y.get_coords()
-#print(row, column)
-#y.add_mines()
-y.display_board()
-#y.explode()
-
-#y.unflag()
-#y.unflag()
-#y.unflag()
-#y.explode()
-y.open_tile(2,2)
-y.open_zeros(2,2)
-y.display_board()
-y.place_flag()
-y.place_flag()
-y.place_flag()
-y.double_click()
-y.display_board()'''

@@ -6,21 +6,21 @@ class User_board:
         self.num_rows = game_board.num_rows
         self.num_columns = game_board.num_columns
         self.num_mines = game_board.num_mines
-        self.unopened_tiles = self.num_rows * self.num_columns
-        self.mine_field = game_board.mine_field
-        self.user_array = []
-        self.flag_set = set()
-        self.mine_set = game_board.mine_set
-        self.play_game = 'Y'
-        self.game_over = False
-        self.game_start_time = int(time.monotonic())
+        self.unopened_tiles = self.num_rows * self.num_columns          #when unopened_tiles == num_mines, the game ends
+        self.mine_field = game_board.mine_field                         #the master minefield that the game refers to 
+        self.user_array = []                                            #keeps track of the users progress
+        self.flag_set = set()                                           #will hold the coords of all flags
+        self.mine_set = game_board.mine_set                             #holds the coords of all mines
+        self.play_game = 'Y'                                            #holds user play again selection
+        self.game_over = False                                          #becomes true after win or loss
+        self.game_start_time = int(time.monotonic())                    #holds the start of the game play timer
 
         for row in range(self.num_rows):        #creates an array of size num_rows x num_columns full of '-'s
             self.user_array.append([])
             for column in range(self.num_columns):
                 self.user_array[row].append('-')
 
-    def update_minefield(self, game_board):
+    def update_minefield(self, game_board):     #updates user_board mine_field and mine_set after first choice
         self.mine_field = game_board.mine_field
         self.mine_set = game_board.mine_set
 
@@ -80,11 +80,11 @@ class User_board:
             y = coord[1]
             self.user_array[x][y] = '*'
 
-    def explode(self):                          #call add mines, check for bad flags and display the board
+    def explode(self):                          #call add mines, check for bad flags, display board and end game
         self.add_mines()
         bad_flag = self.flag_set.difference(self.mine_set)
         
-        for coord in bad_flag:
+        for coord in bad_flag:                  #change bad flags to X
             x = coord[0]
             y = coord[1]
             self.user_array[x][y] = 'X'
@@ -131,7 +131,7 @@ class User_board:
                 sleep(1)
             else:
                 self.user_array[row][column] = '-'
-                self.flag_set.remove((row, column))
+                self.flag_set.remove((row, column))     #remove tile from the set of flag coords
         else:
             print("There are currently no flags\n")
             sleep(1)
@@ -227,9 +227,9 @@ class User_board:
             self.win_game()
       
     def win_game(self):                         #display winning board and ask user to play again
-            no_flag_mines = self.mine_set.difference(self.flag_set)
+            no_flag_mines = self.mine_set.difference(self.flag_set)  #looks for mines that have not been flagged
 
-            for coord in no_flag_mines:
+            for coord in no_flag_mines:                              #adds a flag for each unflagged mine
                 x = coord[0]
                 y = coord[1]
                 self.user_array[x][y] = 'F'
