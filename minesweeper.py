@@ -65,7 +65,7 @@ def create_gameboard():
                 except ValueError:
                     print("thats not a number! \n")
 
-            if mines not in list((range(1, (columns * rows)-1))):                        #make sure entry is in range              
+            if mines not in list((range(1, (columns * rows)))):                        #make sure entry is in range              
                 print("Please enter a number from 1 to {0}\n".format(columns * rows -1))
             else:
                 break

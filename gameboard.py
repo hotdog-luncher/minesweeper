@@ -15,13 +15,27 @@ class Game_board:
                 self.mine_field[row].append(0)
  
     def place_mines(self, x, y):                    #populate the board with mines excluding tiles touching first choice
+        neighbor_list = []
         mine_counter = self.num_mines
       
         for row in range(x-1, x+2):                 #switch values of tiles around first choice from zero to X
             for column in range(y-1, y+2):
                 if row in range(0, self.num_rows) and column in range(0, self.num_columns):  
                     self.mine_field[row][column] = 'X'
-              
+                    neighbor_list.append([row, column])
+
+        neighbor_list.remove([x,y])
+
+        if self.num_mines >= self.num_rows * self.num_columns - len(neighbor_list):
+            neighbors_to_be_mined = self.num_mines - (self.num_rows * self.num_columns -len(neighbor_list) - 1)
+            while neighbors_to_be_mined != 0:
+                #rand_index = random.randrange(0, neighbors_to_be_mined)
+                mine_coords = neighbor_list.pop()
+                self.mine_field[mine_coords[0]][mine_coords[1]] = '*'
+                self.mine_set.add((mine_coords[0],mine_coords[1]))
+                mine_counter -= 1
+                neighbors_to_be_mined -= 1
+
         while mine_counter != 0:                     #add specified number of mines to board in random tiles excluding x'd out tiles
             rand_row = random.randrange(0, self.num_rows)
             rand_col = random.randrange(0, self.num_columns)
