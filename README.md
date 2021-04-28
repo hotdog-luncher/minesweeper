@@ -21,22 +21,21 @@
     D: double click an opened tile if the number displayed equals the number of flagged tiles touching it
     Q: exit the game
     
- After each subsequent action, the userboard is updated and displayed along with mines remaining and a timer showing game time elapsed
- this will continue until the user either opens each tile that is not a mine or selects a mine. 
+ After each subsequent action, the userboard is updated and displayed along with mines remaining and a timer showing game time elapsed.
+ This will continue until the user either opens each tile that is not a mine or selects a mine. 
  
  
  
  some notes:
  
-  the game will not allow a mine to be selected on the first turn.  Therefore, the master "gameboard" that is referenced by the program but hidden from the user is
-    not created until after the first selection
+the game will not allow a mine to be selected on the first turn.  Therefore, the master "gameboard" that is referenced by the program but hidden from the user is
+not created until after the first selection
   
-  when adding mines to the gameboard, the program first X's out all of the tiles around the first choice, insuring that first choice will be a zero if possible.  
-    However if the number of mines approaches the size of the board, the method will randomly add mines to the appropriate amount of X'd out tiles
+when adding mines to the gameboard, the program first X's out all of the tiles around the first choice, insuring that first choice will be a zero if possible.  However, if the number of mines approaches the size of the board, the method will randomly add mines to the appropriate amount of X'd out tiles
   
-  The master gameboard is then generated, including the appropriate number of mines and the corresponding numbers in each of the other tiles
+The master gameboard is then generated, including the appropriate number of mines and the corresponding numbers in each of the other tiles
   
-  choosing a zero tile will cause the game to choose each tile around that tile that is also a zero, opening up a larger section of the board
+choosing a zero tile will cause the game to choose each tile around that tile that is also a zero, opening up a larger section of the board
   
   
   
