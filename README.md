@@ -4,10 +4,10 @@
 
   
   prompts user to enter B (beginner), I (intermediate), E (expert), C (custom):
-		B: create game board 9x9 with 10 mines
-		I: create game board 16x16 with 40 mines
-		E: create game board 16x30 with 99 mines
-		C: promt user to enter number of rows, columns and mines
+	B: create game board 9x9 with 10 mines
+	I: create game board 16x16 with 40 mines
+	E: create game board 16x30 with 99 mines
+	C: promt user to enter number of rows, columns and mines
       
   the game displays the blank board, showing the numbers of the rows and columns, and each tile as unopened.  The game handles spacing if the numbers are double digit
     
