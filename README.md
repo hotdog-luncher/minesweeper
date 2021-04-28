@@ -1,17 +1,20 @@
 # minesweeper
 
-    This is a text based minesweeper program that I built for a Codecademy project.  The course instructions didn't give much specific direction, and so using the skills that I had to this point, I tried to replicate the functionality of the original.  
+    This is a text based minesweeper program that I built for a Codecademy project.  The course instructions didn't give much 
+    specific direction, and so using the skills that I had to this point, I tried to replicate the functionality of the original.  
 
   
   prompts user to enter B (beginner), I (intermediate), E (expert), C (custom):
-	B: create game board 9x9 with 10 mines
-	I: create game board 16x16 with 40 mines
-	E: create game board 16x30 with 99 mines
-	C: promt user to enter number of rows, columns and mines
+  
+    B: create game board 9x9 with 10 mines
+    I: create game board 16x16 with 40 mines
+    E: create game board 16x30 with 99 mines
+    C: prompt user to enter number of rows, columns and mines
       
   the game displays the blank board, showing the numbers of the rows and columns, and each tile as unopened.  The game handles spacing if the numbers are double digit
     
-  user can then select C (choose), F (flag), U (unflag), D (double click) or Q (quit)
+  user can then select C (choose), F (flag), U (unflag), D (double click) or Q (quit):
+  
     C: allows user to select a tile to open
     F: place a flag over a suspected mine
     U: remove a flag
@@ -20,6 +23,8 @@
     
  After each subsequent action, the userboard is updated and displayed along with mines remaining and a timer showing game time elapsed
  this will continue until the user either opens each tile that is not a mine or selects a mine. 
+ 
+ 
  
  some notes:
  
