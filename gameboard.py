@@ -24,13 +24,13 @@ class Game_board:
                     self.mine_field[row][column] = 'X'
                     neighbor_list.append([row, column])
 
-        neighbor_list.remove([x,y])
+        neighbor_list.remove([x,y])                  #remove first choice from list of neighbors
 
         if self.num_mines >= self.num_rows * self.num_columns - len(neighbor_list):
             neighbors_to_be_mined = self.num_mines - (self.num_rows * self.num_columns -len(neighbor_list) - 1)
             while neighbors_to_be_mined != 0:
-                #rand_index = random.randrange(0, neighbors_to_be_mined)
-                mine_coords = neighbor_list.pop()
+                rand_index = random.randrange(0, len(neighbor_list))
+                mine_coords = neighbor_list.pop(rand_index)
                 self.mine_field[mine_coords[0]][mine_coords[1]] = '*'
                 self.mine_set.add((mine_coords[0],mine_coords[1]))
                 mine_counter -= 1
