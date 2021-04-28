@@ -1,7 +1,8 @@
 # minesweeper
 
-    This is a text based minesweeper program that I built for a Codecademy project.  The course instructions didn't give much 
-    specific direction, and so using the skills that I had to this point, I tried to replicate the functionality of the original.  
+    This is a text based minesweeper program that I built for a Codecademy project.  The course instructions
+    didn't give much specific direction, and so using the skills that I had to this point, I tried to 
+    replicate the functionality of the original.  
 
   
   prompts user to enter B (beginner), I (intermediate), E (expert), C (custom):
@@ -23,6 +24,8 @@
     
  After each subsequent action, the userboard is updated and displayed along with mines remaining and a timer showing game time elapsed.
  This will continue until the user either opens each tile that is not a mine or selects a mine. 
+ 
+ 
  
  
  
