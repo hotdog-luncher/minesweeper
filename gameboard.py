@@ -26,7 +26,7 @@ class Game_board:
 
         neighbor_list.remove([x,y])                  #remove first choice from list of neighbors
 
-        if self.num_mines >= self.num_rows * self.num_columns - len(neighbor_list):
+        if self.num_mines >= self.num_rows * self.num_columns - len(neighbor_list):     #if num_mines is close to maximum, add mines to neighbors of first choice
             neighbors_to_be_mined = self.num_mines - (self.num_rows * self.num_columns -len(neighbor_list) - 1)
             while neighbors_to_be_mined != 0:
                 rand_index = random.randrange(0, len(neighbor_list))

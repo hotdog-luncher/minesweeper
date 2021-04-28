@@ -77,7 +77,7 @@ max_rows = 70
 max_columns = 88 
 
 while play_game == 'Y':                                      #master game loop
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('clear')
     print("Welcome to Minesweeper\n")
 
     game_board = create_gameboard()
@@ -95,7 +95,7 @@ while play_game == 'Y':                                      #master game loop
     
         if choice == 'C':
             x, y = user_board.get_coords()
-            if game_board.is_first_turn == True:               #fill gameboard after initial choice insuring a first choice of a 0 tile
+            if game_board.is_first_turn == True:               #fill gameboard after initial choice insuring a first choice of a 0 tile if one exists
                 game_board.place_mines(x,y)
                 game_board.fill_board()
                 user_board.update_minefield(game_board)
