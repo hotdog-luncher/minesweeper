@@ -34,7 +34,7 @@
 the game will not allow a mine to be selected on the first turn.  Therefore, the master "gameboard" that is referenced by the program but hidden from the user is
 not created until after the first selection
   
-when adding mines to the gameboard, the program first X's out all of the tiles around the first choice, insuring that first choice will be a zero if possible.  However, if the number of mines approaches the size of the board, the method will randomly add mines to the appropriate amount of X'd out tiles
+when adding mines to the gameboard, the program first reserves all of the tiles around the first choice, insuring that first choice will be a zero if possible.  However, if the number of mines approaches the size of the board, the method will randomly add mines to the appropriate amount of reserved tiles
   
 The master gameboard is then generated, including the appropriate number of mines and the corresponding numbers in each of the other tiles
   
