@@ -77,7 +77,7 @@ max_rows = 70
 max_columns = 88 
 
 while play_game == 'Y':                                      #master game loop
-    os.system('clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
     print("Welcome to Minesweeper\n")
 
     game_board = create_gameboard()

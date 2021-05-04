@@ -54,7 +54,7 @@ class User_board:
         return row - 1, column - 1
 
     def display_board(self):                    #display user board, including row and column numbers, opened tiles, dashes, and flags
-        os.system('clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
 
         x = 1
         print('  ', end= ' ')
